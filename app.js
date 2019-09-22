@@ -8,6 +8,13 @@ const GoogleSpreadsheet = require("google-spreadsheet");
 const { promisify } = require("util");
 
 const credentials = require("./client_secret.json");
+const key = process.env.PRIVATE_KEY;
+const email = process.env.CLIENT_EMAIL;
+
+const secondCredentials = {
+  client_email: email,
+  private_key: key
+};
 require("dotenv").config();
 
 app.use(morgan("dev"));
@@ -67,7 +74,7 @@ async function accessSpreadsheet() {
   const document = new GoogleSpreadsheet(
     "1eyZDlsX8ksbJ7kmsrRFwm44zaMiCnp5u1e0M2jhBEqw"
   );
-  await promisify(document.useServiceAccountAuth)(credentials);
+  await promisify(document.useServiceAccountAuth)(secondCredentials);
   const info = await promisify(document.getInfo)();
   const sheet = info.worksheets[0];
   const rows = await promisify(sheet.getRows)({
