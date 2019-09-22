@@ -10,6 +10,23 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 /**
+ * Make database connection
+ */
+const environment = process.env.ENVIRONMENT;
+if (environment === "local" || environment === "production") {
+  mongoose.connect(process.env.MONGO_DATABASE_URL, { useNewUrlParser: true });
+} else if (environment === "testing") {
+  mongoose.connect(process.env.MONGO_DATABASE_TEST_URL, {
+    useNewUrlParser: true
+  });
+}
+
+/**
+ * Use the default node js promise
+ */
+mongoose.Promise = global.Promise;
+
+/**
  * Give access control
  * to any client
  */
