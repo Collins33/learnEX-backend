@@ -3,11 +3,10 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-
+const Student = require("./API/models/student");
 const GoogleSpreadsheet = require("google-spreadsheet");
 const { promisify } = require("util");
 
-const credentials = require("./client_secret.json");
 const key = process.env.PRIVATE_KEY;
 const email = process.env.CLIENT_EMAIL;
 
@@ -64,10 +63,29 @@ app.get("/", (req, res) => {
   });
 });
 
-function printStudentDetails(student) {
-  console.log(student.student);
-  console.log(student.email);
-  console.log("---------------------");
+function saveStudentData(studentData) {
+  const student = new Student({
+    _id: new mongoose.Types.ObjectId(),
+    name: studentData.student,
+    email: studentData.email,
+    ip1: studentData.ip131,
+    ip2: studentData.ip222,
+    ip3: studentData.ip322,
+    ip4: studentData.ip428,
+    attendance: studentData.attendance,
+    firstRecommendation: studentData.firstrecommendation,
+    firstRecommendationReason: studentData.reasonfirstrecommendation,
+    finalRecommendation: studentData.finalrecommendation,
+    finalRecommendationReason: studentData.reasonfinalrecommendation
+  });
+  student
+    .save()
+    .then(response => {
+      console.log(response);
+    })
+    .catch(error => {
+      console.log(error);
+    });
 }
 
 async function accessSpreadsheet() {
@@ -81,7 +99,7 @@ async function accessSpreadsheet() {
     offset: 1
   });
   rows.forEach(element => {
-    printStudentDetails(element);
+    saveStudentData(element);
   });
 }
 accessSpreadsheet();
