@@ -64,6 +64,9 @@ app.get("/", (req, res) => {
 });
 
 function saveStudentData(studentData) {
+  Student.remove({}, err => {
+    if (err) console.log(err);
+  });
   const student = new Student({
     _id: new mongoose.Types.ObjectId(),
     name: studentData.student,
