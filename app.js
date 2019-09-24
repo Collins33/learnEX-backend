@@ -58,6 +58,6 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/emails", emailRoutes);
 
-accessSpreadsheet();
+// accessSpreadsheet();
 
 module.exports = app;

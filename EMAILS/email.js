@@ -13,7 +13,12 @@ let transporter = nodemailer.createTransport({
   }
 });
 
-module.exports = (studentEmail, firstrecommendation, finalrecommendation) => {
+module.exports = (
+  studentEmail,
+  firstrecommendation,
+  finalrecommendation,
+  res
+) => {
   if (finalrecommendation === "No" && firstrecommendation === "No") {
     let mailOptions = {
       from: "collinsnjau39@gmail.com",
@@ -24,9 +29,17 @@ module.exports = (studentEmail, firstrecommendation, finalrecommendation) => {
     };
     transporter.sendMail(mailOptions, function(error, info) {
       if (error) {
-        console.log(error, "<><><><><><><><<>");
+        const message = {
+          status: "Ok",
+          description: "Emails were not sent successfully"
+        };
+        res.status(500).json(message);
       } else {
-        console.log("Email sent: " + info.response);
+        const message = {
+          status: "Ok",
+          description: "Emails were sent successfully"
+        };
+        res.status(200).json(message);
       }
     });
   } else if (finalrecommendation === "Yes" && firstrecommendation === "Yes") {
@@ -38,9 +51,17 @@ module.exports = (studentEmail, firstrecommendation, finalrecommendation) => {
     };
     transporter.sendMail(mailOptions, function(error, info) {
       if (error) {
-        console.log(error);
+        const message = {
+          status: "Ok",
+          description: "Emails were not sent successfully"
+        };
+        res.status(500).json(message);
       } else {
-        console.log("Email sent: " + info.response);
+        const message = {
+          status: "Ok",
+          description: "Emails were sent successfully"
+        };
+        res.status(200).json(message);
       }
     });
   }

@@ -19,13 +19,8 @@ exports.emails_send_all = async (req, res, next) => {
         const email = student.email;
         const firstRecommendation = student.firstRecommendation;
         const finalRecommendation = student.finalRecommendation;
-        emailSent(email, firstRecommendation, finalRecommendation);
+        emailSent(email, firstRecommendation, finalRecommendation, res);
       });
-      const message = {
-        status: "Ok",
-        description: "Emails were sent successfully"
-      };
-      res.status(200).json(message);
     })
     .catch(err => {
       res.status(500).json({
