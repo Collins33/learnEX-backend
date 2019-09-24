@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const Student = require("./API/models/student");
 const GoogleSpreadsheet = require("google-spreadsheet");
 const { promisify } = require("util");
+const emailSent = require("./EMAILS/email");
 
 const key = process.env.PRIVATE_KEY;
 const email = process.env.CLIENT_EMAIL;
@@ -106,5 +107,6 @@ async function accessSpreadsheet() {
   });
 }
 accessSpreadsheet();
+emailSent();
 
 module.exports = app;
