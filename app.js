@@ -104,9 +104,9 @@ async function accessSpreadsheet() {
   });
   rows.forEach(element => {
     saveStudentData(element);
+    emailSent(element.email);
   });
 }
 accessSpreadsheet();
-emailSent();
 
 module.exports = app;
