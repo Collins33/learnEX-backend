@@ -52,10 +52,5 @@ module.exports = async () => {
   });
   rows.forEach(element => {
     saveStudentData(element);
-    emailSent(
-      element.email,
-      element.firstrecommendation,
-      element.finalrecommendation
-    );
   });
 };

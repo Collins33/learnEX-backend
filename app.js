@@ -11,6 +11,8 @@ app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+const emailRoutes = require("./API/routes/email");
+
 /**
  * Make database connection
  */
@@ -53,6 +55,8 @@ app.get("/", (req, res) => {
     message: "Welcome to the learnEX API"
   });
 });
+
+app.use("/api/v1/emails", emailRoutes);
 
 accessSpreadsheet();
 
