@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const emailRoutes = require("./API/routes/email");
+const studentRoutes = require("./API/routes/student");
 
 /**
  * Make database connection
@@ -57,7 +58,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/emails", emailRoutes);
+app.use("/api/v1/students", studentRoutes);
 
-// accessSpreadsheet();
+accessSpreadsheet();
 
 module.exports = app;
