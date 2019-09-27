@@ -28,6 +28,22 @@ It allows you to send emails to students
 
 ## Starting the application
 
+Ensure the following is done before starting the server:
+
+## Setting up spreadsheets
+
+- Go to google account and generate credentials for your google account
+- create .env file
+- add the following
+
+```
+    "GOOGLE_SHEETS_KEY": "",
+    "CLIENT_EMAIL": "",
+    "EMAIL_USER": "",
+    "EMAIL_PASSWORD": "",
+    "PRIVATE_KEY": ""
+```
+
 - run `npm start`
 
 ## Running the tests
